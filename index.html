@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>TokTok Wallet · Carnaval</title>
+    <title>TokTok Wallet · Carnaval 2026</title>
     <style>
         * {
             margin: 0;
@@ -32,7 +32,7 @@
             filter: brightness(1.08) contrast(1.05);
         }
 
-        /* CAPA SUTIL - SOLO 5% SOMBRA (MUY LIGERA) */
+        /* CAPA SUTIL - SOLO 5% SOMBRA */
         .capa-sutil {
             position: fixed;
             top: 0;
@@ -47,18 +47,7 @@
             pointer-events: none;
         }
 
-        /* ELEMENTO DECORATIVO MÍNIMO */
-        .decoracion {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            font-size: 2.5rem;
-            opacity: 0.2;
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        /* CONTENIDO PRINCIPAL */
+        /* CONTENIDO PRINCIPAL - CORREGIDO PARA MEJOR VISUALIZACIÓN */
         .contenido {
             position: relative;
             z-index: 10;
@@ -67,124 +56,154 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 1.2rem;
+            padding: 1.5rem;
             color: white;
         }
 
-        /* PARTE SUPERIOR - MENSAJE PEQUEÑO */
+        /* PARTE SUPERIOR - MENSAJE CENTRADO */
         .mensaje-superior {
             width: 100%;
-            margin-top: 1rem;
-            text-align: left;
+            margin-top: 2rem;
+            text-align: center;
         }
 
         .mensaje-superior p {
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: rgba(255, 255, 255, 0.9);
-            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(4px);
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
             display: inline-block;
-            padding: 0.4rem 1.2rem;
+            padding: 0.6rem 1.5rem;
             border-radius: 40px;
-            border: 1px solid rgba(255, 215, 0, 0.25);
-            letter-spacing: 0.3px;
+            letter-spacing: 1px;
+            backdrop-filter: blur(3px);
+            border: 1px solid rgba(255, 215, 0, 0.3);
         }
 
-        /* CONTENEDOR INFERIOR - TÍTULO + BOTÓN */
+        /* CONTENEDOR INFERIOR - MEJOR ALINEACIÓN */
         .contenedor-inferior {
             width: 100%;
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
-            gap: 1.2rem;
-            margin-bottom: 1rem;
+            align-items: center;
+            gap: 1.8rem;
+            margin-bottom: 3rem;
         }
 
-        /* TÍTULO PRINCIPAL - TAMAÑO PERFECTO PARA CELULAR */
+        /* TÍTULO PRINCIPAL - MÁS LEGIBLE */
+        .titulo-principal {
+            text-align: center;
+            width: 100%;
+        }
+
         .titulo-principal h1 {
-            font-size: 2.4rem;
-            font-weight: 800;
+            font-size: 2.8rem;
+            font-weight: 900;
             line-height: 1.1;
             text-transform: uppercase;
-            text-shadow: 0 4px 12px #b85eff, 2px 2px 0 #3d0160;
-            letter-spacing: 1.5px;
-            max-width: 280px;
+            text-shadow: 0 4px 15px #b85eff, 3px 3px 0 #3d0160;
+            letter-spacing: 2px;
+            word-break: break-word;
         }
 
         .titulo-principal h1 span {
             display: block;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 500;
-            letter-spacing: 2px;
-            margin-top: 0.2rem;
-            color: #ffd966;
-            text-shadow: 0 0 15px #ffb347;
+            letter-spacing: 3px;
+            margin-top: 0.3rem;
+            color: #ffd700;
+            text-shadow: 0 0 20px #ff8c00;
         }
 
-        /* BOTÓN - TAMAÑO IDEAL PARA CELULAR */
+        /* BOTÓN - MÁS GRANDE Y MEJOR POSICIONADO */
         .btn-descarga {
-            background: linear-gradient(145deg, #b14dff, #7a2bc2);
-            border: 1.5px solid rgba(255, 255, 255, 0.7);
-            padding: 1rem 2.2rem;
+            background: linear-gradient(145deg, #c084fc, #8b5cf6);
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            padding: 1.2rem 3rem;
             border-radius: 60px;
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-size: 1.8rem;
+            font-weight: 800;
             color: white;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             cursor: pointer;
-            box-shadow: 0 15px 30px -5px #2d0052, 0 0 0 2px rgba(255, 215, 0, 0.4) inset;
+            box-shadow: 0 20px 40px -5px #2d0052, 0 0 0 3px #fbbf24 inset;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            text-shadow: 1px 1px 0 #4a1180;
-            transition: 0.2s;
+            gap: 12px;
+            text-shadow: 2px 2px 0 #581c87;
+            transition: transform 0.2s, box-shadow 0.2s;
             backdrop-filter: blur(5px);
-            width: auto;
-            min-width: 200px;
-            justify-content: center;
+            width: fit-content;
+            margin: 0 auto;
         }
 
         .btn-descarga:active {
-            transform: scale(0.97);
+            transform: scale(0.95);
+            box-shadow: 0 10px 25px -5px #2d0052, 0 0 0 3px #fcd34d inset;
         }
 
         .btn-descarga::before {
             content: "📲";
-            font-size: 1.6rem;
+            font-size: 2rem;
         }
 
-        .hidden-link {
-            display: none;
-        }
-
-        /* AJUSTES FINOS PARA PANTALLAS PEQUEÑAS */
-        @media (max-width: 380px) {
+        /* AJUSTES POR DISPOSITIVO */
+        @media (max-width: 480px) {
+            .contenido {
+                padding: 1rem;
+            }
+            
             .titulo-principal h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
+            
             .titulo-principal h1 span {
-                font-size: 1rem;
+                font-size: 1.1rem;
             }
+            
+            .btn-descarga {
+                padding: 1rem 2.2rem;
+                font-size: 1.5rem;
+            }
+            
+            .btn-descarga::before {
+                font-size: 1.6rem;
+            }
+            
+            .mensaje-superior p {
+                font-size: 0.9rem;
+                padding: 0.4rem 1rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .titulo-principal h1 {
+                font-size: 1.8rem;
+            }
+            
             .btn-descarga {
                 padding: 0.9rem 1.8rem;
                 font-size: 1.3rem;
             }
-            .mensaje-superior p {
-                font-size: 0.85rem;
-                padding: 0.3rem 1rem;
+        }
+
+        /* PARA PANTALLAS MUY PEQUEÑAS */
+        @media (max-height: 600px) {
+            .contenedor-inferior {
+                gap: 1rem;
+                margin-bottom: 1rem;
+            }
+            
+            .mensaje-superior {
+                margin-top: 1rem;
             }
         }
 
-        @media (max-height: 600px) {
-            .contenedor-inferior {
-                gap: 0.8rem;
-            }
-            .btn-descarga {
-                padding: 0.8rem 2rem;
-            }
+        .hidden-link {
+            display: none;
         }
     </style>
 </head>
@@ -193,29 +212,28 @@
     <!-- VIDEO DE FONDO -->
     <video class="video-fondo" autoplay muted loop playsinline>
         <source src="video/animacion.mp4" type="video/mp4">
+        <!-- Fallback por si no carga el video -->
+        Tu navegador no soporta el video.
     </video>
 
     <!-- CAPA SUTIL -->
     <div class="capa-sutil"></div>
-    
-    <!-- MÍNIMA DECORACIÓN -->
-    <div class="decoracion">🎭</div>
 
     <!-- CONTENIDO PRINCIPAL -->
     <div class="contenido">
 
-        <!-- MENSAJE PEQUEÑO SUPERIOR -->
+        <!-- MENSAJE SUPERIOR -->
         <div class="mensaje-superior">
-            <p>⚡ DESCUBRE LAS PROMOCIONES EXCLUSIVAS ⚡</p>
+            <p>⚡ PROMOCIONES EXCLUSIVAS DE CARNAVAL ⚡</p>
         </div>
 
-        <!-- PARTE INFERIOR CON TÍTULO Y BOTÓN -->
+        <!-- PARTE INFERIOR -->
         <div class="contenedor-inferior">
             <!-- TÍTULO PRINCIPAL -->
             <div class="titulo-principal">
                 <h1>
                     TOKTOK WALLET
-                    <span>carnaval 2026</span>
+                    <span>Carnaval 2026</span>
                 </h1>
             </div>
 
@@ -224,25 +242,51 @@
         </div>
     </div>
 
-    <!-- ENLACE OCULTO APK -->
-    <a id="linkApk" class="hidden-link" download="TokTokWallet.apk" href="apk/TokTok 2026.apk"></a>
+    <!-- ENLACE OCULTO APK - CORREGIDO -->
+    <a id="linkApk" class="hidden-link" download="TokTokWallet.apk" href="#">Enlace oculto</a>
 
     <script>
         (function() {
             const boton = document.getElementById('btnDescargar');
             const link = document.getElementById('linkApk');
             
-            link.href = 'app/TokTokWallet.apk';
+            // CORRECCIÓN IMPORTANTE: La ruta del APK debe ser correcta
+            // Opción 1: Si el APK está en la misma carpeta que este HTML
+            link.href = 'apk/TokTok 2026.apk';
+            
+            // Opción 2: Si está en una carpeta "app" (descomenta la que necesites)
+            // link.href = 'app/TokTokWallet.apk';
+            
+            // Opción 3: Si está en una carpeta "apk" (la que usaste en tu código)
+            // link.href = 'apk/TokTok 2026.apk';
 
-            boton.addEventListener('click', function() {
+            boton.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Verificar que el link tiene un href válido
+                if (link.href === '#' || link.href === window.location.href) {
+                    alert('Error: No se encontró el archivo APK. Verifica la ruta.');
+                    return;
+                }
+                
                 link.click();
+                
+                // Feedback visual
                 boton.style.opacity = '0.8';
                 boton.innerHTML = '📲 DESCARGANDO';
+                boton.disabled = true;
+                
                 setTimeout(() => {
                     boton.style.opacity = '1';
                     boton.innerHTML = '📲 DESCARGAR';
-                }, 1000);
+                    boton.disabled = false;
+                }, 2000);
             });
+
+            // Mensaje de ayuda para la configuración
+            console.log('Para que la descarga funcione:');
+            console.log('1. Coloca tu archivo APK en la misma carpeta que este HTML');
+            console.log('2. O cambia la ruta en link.href (línea 187-191)');
         })();
     </script>
 </body>
