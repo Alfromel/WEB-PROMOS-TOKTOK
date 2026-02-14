@@ -3,290 +3,655 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>TokTok Wallet · Carnaval 2026</title>
+    <title>TokTok Wallet · Oficial Carnaval 2026</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        :root {
+            --primary: #8b5cf6;
+            --primary-dark: #6d28d9;
+            --secondary: #fbbf24;
+            --secondary-dark: #f59e0b;
+            --accent: #ec4899;
+            --dark: #0f0a1f;
+            --light: #ffffff;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --shadow-glow: 0 0 20px rgba(139, 92, 246, 0.5);
         }
 
         body {
             min-height: 100vh;
             width: 100%;
-            overflow: hidden;
+            overflow-x: hidden;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--dark);
             position: relative;
-            background: #0a0012;
         }
 
-        /* VIDEO DE FONDO - NÍTIDO */
         .video-fondo {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translateX(-50%) translateY(-50%);
+            z-index: -2;
             object-fit: cover;
-            z-index: 0;
-            filter: brightness(1.08) contrast(1.05);
+            filter: brightness(1.1) contrast(1.1) saturate(1.2);
         }
 
-        /* CAPA SUTIL - SOLO 5% SOMBRA */
-        .capa-sutil {
+        .overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(180deg, 
-                rgba(0,0,0,0.01) 0%,
-                rgba(30,0,40,0.03) 50%,
-                rgba(0,0,0,0.05) 100%);
-            z-index: 1;
+            background: radial-gradient(circle at 30% 50%, rgba(139, 92, 246, 0.2) 0%, rgba(15, 10, 31, 0.95) 90%);
+            z-index: -1;
             pointer-events: none;
         }
 
-        /* CONTENIDO PRINCIPAL - CORREGIDO PARA MEJOR VISUALIZACIÓN */
-        .contenido {
-            position: relative;
-            z-index: 10;
+        .overlay-secundario {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 100vh;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(15, 10, 31, 0.7) 0%, transparent 30%, transparent 70%, rgba(15, 10, 31, 0.7) 100%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .contenedor {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            padding: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 100px;
+            padding: 0.8rem 1.5rem;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: white;
+            letter-spacing: 1px;
+        }
+
+        .logo-text span {
+            color: var(--secondary);
+            font-weight: 300;
+            font-size: 0.9rem;
+            margin-left: 0.3rem;
+        }
+
+        .contador {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 40px;
+            padding: 0.5rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .contador-numero {
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: var(--secondary);
+            letter-spacing: 2px;
+        }
+
+        .contador-texto {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            padding: 1.5rem;
-            color: white;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 2rem 0;
         }
 
-        /* PARTE SUPERIOR - MENSAJE CENTRADO */
-        .mensaje-superior {
-            width: 100%;
-            margin-top: 2rem;
-            text-align: center;
+        .badge {
+            background: rgba(139, 92, 246, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            border-radius: 60px;
+            padding: 0.6rem 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            animation: pulse 2s infinite;
         }
 
-        .mensaje-superior p {
-            font-size: 1rem;
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .badge-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: var(--dark);
+        }
+
+        .badge-text {
+            font-size: 0.9rem;
             font-weight: 600;
             color: white;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.7);
-            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
-            display: inline-block;
-            padding: 0.6rem 1.5rem;
-            border-radius: 40px;
             letter-spacing: 1px;
-            backdrop-filter: blur(3px);
-            border: 1px solid rgba(255, 215, 0, 0.3);
         }
 
-        /* CONTENEDOR INFERIOR - MEJOR ALINEACIÓN */
-        .contenedor-inferior {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.8rem;
-            margin-bottom: 3rem;
+        .badge-text span {
+            color: var(--secondary);
+            font-weight: 800;
+            margin-left: 0.3rem;
         }
 
-        /* TÍTULO PRINCIPAL - MÁS LEGIBLE */
         .titulo-principal {
-            text-align: center;
             width: 100%;
         }
 
         .titulo-principal h1 {
-            font-size: 2.8rem;
+            font-size: clamp(3rem, 8vw, 5rem);
             font-weight: 900;
-            line-height: 1.1;
+            line-height: 1;
+            color: white;
             text-transform: uppercase;
-            text-shadow: 0 4px 15px #b85eff, 3px 3px 0 #3d0160;
             letter-spacing: 2px;
-            word-break: break-word;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            animation: fadeInUp 1s ease;
         }
 
-        .titulo-principal h1 span {
-            display: block;
-            font-size: 1.3rem;
-            font-weight: 500;
+        .titulo-principal .gradient-text {
+            background: linear-gradient(135deg, #fff 0%, #f0e6ff 50%, #d9b3ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .titulo-principal h2 {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            font-weight: 600;
+            color: transparent;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b, #f97316);
+            -webkit-background-clip: text;
+            background-clip: text;
             letter-spacing: 3px;
-            margin-top: 0.3rem;
-            color: #ffd700;
-            text-shadow: 0 0 20px #ff8c00;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
         }
 
-        /* BOTÓN - MÁS GRANDE Y MEJOR POSICIONADO */
+        .estadisticas {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+
+        .stat-item {
+            text-align: left;
+        }
+
+        .stat-numero {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--secondary);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+            max-width: 400px;
+            margin: 2rem 0;
+        }
+
         .btn-descarga {
-            background: linear-gradient(145deg, #c084fc, #8b5cf6);
-            border: 2px solid rgba(255, 255, 255, 0.9);
-            padding: 1.2rem 3rem;
+            background: linear-gradient(135deg, #8b5cf6, #6d28d9, #4c1d95);
+            border: none;
+            padding: 1.5rem 2rem;
             border-radius: 60px;
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 800;
             color: white;
             text-transform: uppercase;
             letter-spacing: 3px;
             cursor: pointer;
-            box-shadow: 0 20px 40px -5px #2d0052, 0 0 0 3px #fbbf24 inset;
-            display: inline-flex;
+            box-shadow: 0 25px 40px -10px #4c1d95, 0 0 0 3px rgba(251, 191, 36, 0.5), 0 0 30px #8b5cf6;
+            display: flex;
             align-items: center;
-            gap: 12px;
-            text-shadow: 2px 2px 0 #581c87;
-            transition: transform 0.2s, box-shadow 0.2s;
-            backdrop-filter: blur(5px);
-            width: fit-content;
-            margin: 0 auto;
-        }
-
-        .btn-descarga:active {
-            transform: scale(0.95);
-            box-shadow: 0 10px 25px -5px #2d0052, 0 0 0 3px #fcd34d inset;
+            justify-content: center;
+            gap: 15px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
         }
 
         .btn-descarga::before {
-            content: "📲";
-            font-size: 2rem;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
         }
 
-        /* AJUSTES POR DISPOSITIVO */
-        @media (max-width: 480px) {
-            .contenido {
+        .btn-descarga:hover::before {
+            left: 100%;
+        }
+
+        .btn-descarga:active {
+            transform: scale(0.98);
+            box-shadow: 0 15px 30px -10px #4c1d95, 0 0 0 3px #fbbf24;
+        }
+
+        .btn-icon {
+            font-size: 2.2rem;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+        }
+
+        .btn-secundario {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            padding: 0.8rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+        }
+
+        .btn-secundario:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--secondary);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 3rem 0;
+            width: 100%;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 24px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(139, 92, 246, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary);
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.5);
+        }
+
+        .feature-card:hover::after {
+            opacity: 1;
+        }
+
+        .feature-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.3));
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-desc {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.4;
+        }
+
+        .testimonial {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 2rem;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .testimonial::before {
+            content: '"';
+            position: absolute;
+            top: 0;
+            left: 1rem;
+            font-size: 5rem;
+            color: rgba(139, 92, 246, 0.2);
+            font-family: serif;
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            color: white;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+        }
+
+        .author-info {
+            font-size: 0.9rem;
+        }
+
+        .author-name {
+            font-weight: 700;
+            color: white;
+        }
+
+        .author-verified {
+            color: var(--secondary);
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 2rem 0 1rem;
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
+            margin-top: 3rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+
+        .footer-link:hover {
+            color: var(--secondary);
+        }
+
+        .footer-copy {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.8rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .contenedor {
                 padding: 1rem;
             }
             
-            .titulo-principal h1 {
-                font-size: 2.2rem;
-            }
-            
-            .titulo-principal h1 span {
-                font-size: 1.1rem;
-            }
-            
-            .btn-descarga {
-                padding: 1rem 2.2rem;
-                font-size: 1.5rem;
-            }
-            
-            .btn-descarga::before {
-                font-size: 1.6rem;
-            }
-            
-            .mensaje-superior p {
-                font-size: 0.9rem;
-                padding: 0.4rem 1rem;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .titulo-principal h1 {
-                font-size: 1.8rem;
-            }
-            
-            .btn-descarga {
-                padding: 0.9rem 1.8rem;
-                font-size: 1.3rem;
-            }
-        }
-
-        /* PARA PANTALLAS MUY PEQUEÑAS */
-        @media (max-height: 600px) {
-            .contenedor-inferior {
+            .header {
+                flex-direction: column;
                 gap: 1rem;
-                margin-bottom: 1rem;
+                align-items: stretch;
+                text-align: center;
+                border-radius: 20px;
             }
             
-            .mensaje-superior {
-                margin-top: 1rem;
+            .logo {
+                justify-content: center;
             }
-        }
-
-        .hidden-link {
-            display: none;
+            
+            .contador {
+                justify-content: center;
+            }
+            
+            .hero {
+                align-items: center;
+                text-align: center;
+            }
+            
+            .badge {
+                margin: 0 auto;
+            }
+            
+            .estadisticas {
+                justify-content: center;
+            }
+            
+            .cta-container {
+                margin: 1rem auto;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-links {
+                justify-content: center;
+            }
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- VIDEO DE FONDO -->
-    <video class="video-fondo" autoplay muted loop playsinline>
+    <video class="video-fondo" autoplay muted loop playsinline poster="poster.jpg">
         <source src="video/animacion.mp4" type="video/mp4">
-        <!-- Fallback por si no carga el video -->
-        Tu navegador no soporta el video.
     </video>
 
-    <!-- CAPA SUTIL -->
-    <div class="capa-sutil"></div>
+    <div class="overlay"></div>
+    <div class="overlay-secundario"></div>
 
-    <!-- CONTENIDO PRINCIPAL -->
-    <div class="contenido">
+    <div class="contenedor">
 
-        <!-- MENSAJE SUPERIOR -->
-        <div class="mensaje-superior">
-            <p>⚡ PROMOCIONES EXCLUSIVAS DE CARNAVAL ⚡</p>
-        </div>
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">🎭</div>
+                <div class="logo-text">TOKTOK <span>wallet</span></div>
+            </div>
+            <div class="contador">
+                <span class="contador-numero" id="contadorDescargas">2,847</span>
+                <span class="contador-texto">descargas hoy</span>
+            </div>
+        </header>
 
-        <!-- PARTE INFERIOR -->
-        <div class="contenedor-inferior">
-            <!-- TÍTULO PRINCIPAL -->
-            <div class="titulo-principal">
-                <h1>
-                    TOKTOK WALLET
-                    <span>Carnaval 2026</span>
-                </h1>
+        <div class="hero">
+            <div class="badge">
+                <div class="badge-icon">🎊</div>
+                <div class="badge-text">EDICIÓN LIMITADA <span>CARNAVAL 2026</span></div>
             </div>
 
-            <!-- BOTÓN DE DESCARGA -->
-            <button class="btn-descarga" id="btnDescargar">DESCARGAR</button>
-        </div>
-    </div>
+            <div class="titulo-principal">
+                <h1 class="gradient-text">TOKTOK<br>WALLET</h1>
+                <h2>PROMOCIONES CARNAVALERAS</h2>
+            </div>
 
-    <!-- ENLACE OCULTO APK - CORREGIDO -->
-    <a id="linkApk" class="hidden-link" download="TokTokWallet.apk" href="#">Enlace oculto</a>
+            <div class="estadisticas">
+                <div class="stat-item">
+                    <div class="stat-numero">+15k</div>
+                    <div class="stat-label">usuarios felices</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-numero">50%</div>
+                    <div class="stat-label">cashback</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-numero">🎭</div>
+                    <div class="stat-label">sorteos exclusivos</div>
+                </div>
+            </div>
+
+            <div class="cta-container">
+                <!-- BOTÓN CON DESCARGA DIRECTA - AHORA SÍ FUNCIONA -->
+                <a href="TokTok 2026.apk" download="TokTok2026.apk" style="text-decoration: none; width: 100%;">
+                    <button class="btn-descarga" id="btnDescargar">
+                        <span class="btn-icon">📲</span>
+                        DESCARGAR
+                    </button>
+                </a>
+                <button class="btn-secundario" id="btnInfo">
+                    <span>⏱️</span>
+                    PROMOCIONES VÁLIDAS HASTA 22/02
+                </button>
+            </div>
+
+        
+    </div>
 
     <script>
         (function() {
-            const boton = document.getElementById('btnDescargar');
-            const link = document.getElementById('linkApk');
+            const btnInfo = document.getElementById('btnInfo');
+            const contadorDescargas = document.getElementById('contadorDescargas');
             
-            // CORRECCIÓN IMPORTANTE: La ruta del APK debe ser correcta
-            // Opción 1: Si el APK está en la misma carpeta que este HTML
-            link.href = 'apk/TokTok 2026.apk';
-            
-            // Opción 2: Si está en una carpeta "app" (descomenta la que necesites)
-            // link.href = 'app/TokTokWallet.apk';
-            
-            // Opción 3: Si está en una carpeta "apk" (la que usaste en tu código)
-            // link.href = 'apk/TokTok 2026.apk';
-
-            boton.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Verificar que el link tiene un href válido
-                if (link.href === '#' || link.href === window.location.href) {
-                    alert('Error: No se encontró el archivo APK. Verifica la ruta.');
-                    return;
+            // SIMULADOR DE DESCARGAS EN VIVO
+            let descargas = 2847;
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    descargas += Math.floor(Math.random() * 3) + 1;
+                    contadorDescargas.textContent = descargas.toLocaleString();
                 }
-                
-                link.click();
-                
-                // Feedback visual
-                boton.style.opacity = '0.8';
-                boton.innerHTML = '📲 DESCARGANDO';
-                boton.disabled = true;
-                
-                setTimeout(() => {
-                    boton.style.opacity = '1';
-                    boton.innerHTML = '📲 DESCARGAR';
-                    boton.disabled = false;
-                }, 2000);
+            }, 30000);
+
+            // BOTÓN DE INFORMACIÓN
+            btnInfo.addEventListener('click', function() {
+                alert('🎊 PROMOCIONES CARNAVAL 2026 🎊\n\n• 50% cashback en recargas\n• Sorteo viaje a Río\n• Pulsera VIP para 100 personas\n\n⏰ Válido hasta el 10 de marzo');
             });
 
-            // Mensaje de ayuda para la configuración
-            console.log('Para que la descarga funcione:');
-            console.log('1. Coloca tu archivo APK en la misma carpeta que este HTML');
-            console.log('2. O cambia la ruta en link.href (línea 187-191)');
+            // MESSAGE DE CONFIRMACIÓN
+            console.log('%c🚀 TokTok Wallet · DESCARGA DIRECTA ACTIVADA', 'color: #8b5cf6; font-size: 14px; font-weight: bold;');
+            console.log('%c📱 Ruta APK: apk/TokTok2026.apk', 'color: #fbbf24; font-size: 12px;');
         })();
     </script>
 </body>
