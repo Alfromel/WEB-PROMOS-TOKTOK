@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>TokTok Wallet · Carnaval</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            background: #0a0012;
+        }
+
+        /* VIDEO DE FONDO - NÍTIDO */
+        .video-fondo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            filter: brightness(1.08) contrast(1.05);
+        }
+
+        /* CAPA SUTIL - SOLO 5% SOMBRA (MUY LIGERA) */
+        .capa-sutil {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, 
+                rgba(0,0,0,0.01) 0%,
+                rgba(30,0,40,0.03) 50%,
+                rgba(0,0,0,0.05) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* ELEMENTO DECORATIVO MÍNIMO */
+        .decoracion {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 2.5rem;
+            opacity: 0.2;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* CONTENIDO PRINCIPAL */
+        .contenido {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 1.2rem;
+            color: white;
+        }
+
+        /* PARTE SUPERIOR - MENSAJE PEQUEÑO */
+        .mensaje-superior {
+            width: 100%;
+            margin-top: 1rem;
+            text-align: left;
+        }
+
+        .mensaje-superior p {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(4px);
+            display: inline-block;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 215, 0, 0.25);
+            letter-spacing: 0.3px;
+        }
+
+        /* CONTENEDOR INFERIOR - TÍTULO + BOTÓN */
+        .contenedor-inferior {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* TÍTULO PRINCIPAL - TAMAÑO PERFECTO PARA CELULAR */
+        .titulo-principal h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            text-transform: uppercase;
+            text-shadow: 0 4px 12px #b85eff, 2px 2px 0 #3d0160;
+            letter-spacing: 1.5px;
+            max-width: 280px;
+        }
+
+        .titulo-principal h1 span {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            margin-top: 0.2rem;
+            color: #ffd966;
+            text-shadow: 0 0 15px #ffb347;
+        }
+
+        /* BOTÓN - TAMAÑO IDEAL PARA CELULAR */
+        .btn-descarga {
+            background: linear-gradient(145deg, #b14dff, #7a2bc2);
+            border: 1.5px solid rgba(255, 255, 255, 0.7);
+            padding: 1rem 2.2rem;
+            border-radius: 60px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            box-shadow: 0 15px 30px -5px #2d0052, 0 0 0 2px rgba(255, 215, 0, 0.4) inset;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 1px 1px 0 #4a1180;
+            transition: 0.2s;
+            backdrop-filter: blur(5px);
+            width: auto;
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        .btn-descarga:active {
+            transform: scale(0.97);
+        }
+
+        .btn-descarga::before {
+            content: "📲";
+            font-size: 1.6rem;
+        }
+
+        .hidden-link {
+            display: none;
+        }
+
+        /* AJUSTES FINOS PARA PANTALLAS PEQUEÑAS */
+        @media (max-width: 380px) {
+            .titulo-principal h1 {
+                font-size: 2rem;
+            }
+            .titulo-principal h1 span {
+                font-size: 1rem;
+            }
+            .btn-descarga {
+                padding: 0.9rem 1.8rem;
+                font-size: 1.3rem;
+            }
+            .mensaje-superior p {
+                font-size: 0.85rem;
+                padding: 0.3rem 1rem;
+            }
+        }
+
+        @media (max-height: 600px) {
+            .contenedor-inferior {
+                gap: 0.8rem;
+            }
+            .btn-descarga {
+                padding: 0.8rem 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- VIDEO DE FONDO -->
+    <video class="video-fondo" autoplay muted loop playsinline>
+        <source src="video/animacion.mp4" type="video/mp4">
+    </video>
+
+    <!-- CAPA SUTIL -->
+    <div class="capa-sutil"></div>
+    
+    <!-- MÍNIMA DECORACIÓN -->
+    <div class="decoracion">🎭</div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="contenido">
+
+        <!-- MENSAJE PEQUEÑO SUPERIOR -->
+        <div class="mensaje-superior">
+            <p>⚡ DESCUBRE LAS PROMOCIONES EXCLUSIVAS ⚡</p>
+        </div>
+
+        <!-- PARTE INFERIOR CON TÍTULO Y BOTÓN -->
+        <div class="contenedor-inferior">
+            <!-- TÍTULO PRINCIPAL -->
+            <div class="titulo-principal">
+                <h1>
+                    TOKTOK WALLET
+                    <span>carnaval 2026</span>
+                </h1>
+            </div>
+
+            <!-- BOTÓN DE DESCARGA -->
+            <button class="btn-descarga" id="btnDescargar">DESCARGAR</button>
+        </div>
+    </div>
+
+    <!-- ENLACE OCULTO APK -->
+    <a id="linkApk" class="hidden-link" download="TokTokWallet.apk" href="apk/TokTok 2026.apk"></a>
+
+    <script>
+        (function() {
+            const boton = document.getElementById('btnDescargar');
+            const link = document.getElementById('linkApk');
+            
+            link.href = 'app/TokTokWallet.apk';
+
+            boton.addEventListener('click', function() {
+                link.click();
+                boton.style.opacity = '0.8';
+                boton.innerHTML = '📲 DESCARGANDO';
+                setTimeout(() => {
+                    boton.style.opacity = '1';
+                    boton.innerHTML = '📲 DESCARGAR';
+                }, 1000);
+            });
+        })();
+    </script>
+</body>
+</html>
